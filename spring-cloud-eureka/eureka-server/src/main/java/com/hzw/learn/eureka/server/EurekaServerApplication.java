@@ -1,4 +1,4 @@
-package com.hzw.learn.eureka;
+package com.hzw.learn.eureka.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
