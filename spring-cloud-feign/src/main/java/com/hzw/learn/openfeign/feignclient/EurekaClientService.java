@@ -1,4 +1,4 @@
-package com.hzw.learn.feign.feignclient;
+package com.hzw.learn.openfeign.feignclient;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;

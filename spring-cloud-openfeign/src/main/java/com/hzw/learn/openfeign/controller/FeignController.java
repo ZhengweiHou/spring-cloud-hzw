@@ -1,11 +1,10 @@
-package com.hzw.learn.feign.controller;
+package com.hzw.learn.openfeign.controller;
 
-import com.hzw.learn.feign.feignclient.EurekaClientService;
+import com.hzw.learn.openfeign.feignclient.EurekaClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +22,8 @@ public class FeignController {
     @Autowired
     EurekaClientService eurekaClientService;
 
-    @RequestMapping(value = "hello",method = RequestMethod.GET)
+//    @RequestMapping(value = "hello",method = RequestMethod.GET)
+    @GetMapping(value = "hello") // 同义
     public String helloFeign(@RequestParam(value = "msg") String msg){
         log.info("开始访问eurekaClient应用");
         String returnMsg = eurekaClientService.eurekaClientHello(msg);
