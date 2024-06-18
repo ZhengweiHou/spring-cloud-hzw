@@ -1,0 +1,10 @@
+server:
+  port: 8004
+spring:
+  application:
+    name: openfeign-server
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        service: ${spring.application.name}${unitid:1}

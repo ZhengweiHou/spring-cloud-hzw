@@ -1,0 +1,16 @@
+server:
+  port: 8003
+spring:
+  application:
+    name: openfeign_client
+#  cloud:
+#    loadbalancer:
+#      ribbon:
+#        enabled: true
+#    service-registry:
+#      auto-registration:
+##        enabled: false
+#    nacos:
+#      discovery:
+##        enabled: false
+#        server-addr: 127.0.0.1:8848
