@@ -1,0 +1,5 @@
+#org.springframework.boot.env.EnvironmentPostProcessor=\
+#com.hzw.learn.springcloudgateway.ext.NacosPasswordEnvironmentPostProcessor
+# Bootstrap components
+org.springframework.cloud.bootstrap.BootstrapConfiguration=\
+com.hzw.learn.springcloudgateway.ext.ExtBootstrapConfiguration

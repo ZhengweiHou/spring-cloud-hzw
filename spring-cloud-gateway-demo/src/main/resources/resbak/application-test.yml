@@ -1,0 +1,96 @@
+server:
+  port: 8089
+  netty:
+    connection-timeout:
+
+
+spring:
+  application:
+    name: hzw-spring-cloud_gateway-demo
+  cloud:
+    discovery:
+      reactive:
+        enabled: true
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    gateway:
+      metrics:
+        tags:
+          path:
+            enabled: true
+        enabled: true
+      enabled: true
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: false
+      httpclient:
+      routes:
+        - id: nacos1
+          uri: lb://openfeign-client # 自动服务发现
+#          uri: http://localhost:8003
+          predicates:
+            - Path=/openfeign-client/**
+
+        - id: hzw_frow
+          uri: http://localhost:8089
+          predicates:
+            - Path=/hzwforw
+          filters:
+            - RewritePath=/hzwforw, /hzw
+
+        - id: hzw1
+          uri: http://localhost:8003
+          predicates:
+            - Path=/hzw
+          filters:
+            - Hzw
+
+        - id: hzw2
+          uri: http://localhost:8003
+          predicates:
+            - Path=/hzw2
+          filters:
+            - Hzw2
+
+        - id: hzw_w1_1
+          uri: http://localhost:1001
+          predicates:
+            - Path=/whoami
+            - Weight=hzwgroup1, 2
+        - id: hzw_w1_2
+          uri: http://localhost:1002
+          predicates:
+            - Path=/whoami
+            - Weight=hzwgroup1, 8
+
+        - id: hzw_w2_1
+          uri: http://localhost:2001
+          predicates:
+            - Path=/simplehello
+            - Weight=hzwgroup2, 1 # group id 不可重复，若和上文重复会导致路由问题
+        - id: hzw_w2_2
+          uri: http://localhost:2002
+          predicates:
+            - Path=/simplehello
+            - Weight=hzwgroup2, 100
+
+# actuator API endpoint
+management:
+  endpoint:
+    gateway:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include:
+          - gateway
+          - prometheus
+  metrics:
+    tags:
+      application: ${spring.application.name}
+    export:
+      prometheus:
+        descriptions: true
+        enabled: true

@@ -1,0 +1,57 @@
+server:
+  port: 8089
+
+spring:
+  application:
+    name: hzw-spring-cloud_gateway-demo
+  cloud:
+    discovery:
+      client:
+        simple:
+          instances:
+            whoamiservic:
+              - host: localhost
+                port: 8003
+              - serviceId: whoamiservic
+                instanceId: hzw2
+                host: localhost
+                port: 8004
+    gateway:
+      thread-pool:
+        fixed:
+
+      routes:
+        - id: whoami1
+          uri: http://localhost:8003
+          predicates:
+            - Path=/temp
+        - id: whoami2
+          uri: lb://whoamiservic # 自动服务发现
+          predicates:
+            - Path=/
+
+--- # 暴露监控端点 配置
+management:
+  endpoints:
+    # web端点配置属性
+    web:
+      # 默认端点前缀为/actuator，可修改
+      base-path: /actuator
+      exposure:
+        # 包含端点，全用直接使用'*'即可，多个场景['prometheus','health']
+        #include: [ 'prometheus','health' ]
+        include: [ '*' ]
+        # 排除端点
+        exclude: [ 'shutdown' ]
+    # JMX 端点配置属性
+    jmx:
+      exposure:
+        include: [ 'prometheus' ]
+        exclude: [ 'shutdown' ]
+  metrics:
+    tags:
+      application: ${spring.application.name}
+    export:
+      prometheus:
+        descriptions: true
+        enabled: true
