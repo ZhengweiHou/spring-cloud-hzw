@@ -3,8 +3,6 @@ package com.hzw.learn.openfeign.feignclient;
 import com.hzw.learn.openfeign.feignclient.impl.OpenFeignClientServiceImpl;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
@@ -19,7 +17,7 @@ import java.util.Map;
 //添加FeignClient注解，绑定服务提供者。
 @FeignClient(
         /** {@link org.springframework.cloud.openfeign.FeignClientsRegistrar#getName(Map)} 会解析并赋值此处的${unitid:}  **/
-        value = "openfeign-server${unitid:}",
+        value = "openfeign-server${unitid:1}",
         fallback = OpenFeignClientServiceImpl.class,
         decode404 = true
 )

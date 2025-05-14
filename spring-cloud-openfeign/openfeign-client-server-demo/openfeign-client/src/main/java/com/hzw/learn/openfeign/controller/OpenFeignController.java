@@ -30,4 +30,15 @@ public class OpenFeignController {
         log.info("接收到openFeign应用返回：{}",returnMsg);
         return returnMsg;
     }
+
+    @GetMapping(value = "hello1")
+    public String hello1(){
+        log.info("开始访问 hello1");
+        return "hello1!!";
+    }
+    @GetMapping(value = "openfeign-client/hello2")
+    public String helloFeign2(){
+        log.info("开始访问openFeign应用");
+        return "hello!!";
+    }
 }

@@ -1,7 +1,5 @@
 package com.hzw.learn.openfeign;
 
-import org.springframework.beans.factory.config.SingletonBeanRegistry;
-import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -20,6 +18,8 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan("com.hzw.learn.openfeign")
 public class OpenFeignClientApplication {
     public static void main(String[] args) {
+
         SpringApplication.run(OpenFeignClientApplication .class, args);
+
     }
 }

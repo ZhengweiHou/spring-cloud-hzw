@@ -2,7 +2,7 @@ server:
   port: 8003
 spring:
   application:
-    name: openfeign_client
+    name: openfeign-client
   cloud:
     service-registry:
       auto-registration:
