@@ -1,0 +1,20 @@
+{
+	"folders": [
+        {
+            "path": "spring-cloud-gateway-demo"
+        },
+        {
+            "path": "../../grpc-web-spring-cloud-gateway"
+        },
+        {
+            "path": "spring-cloud-gateway-v3-demo"
+        },
+        {
+            "path": "../spring-boot-parent-hzw/http/apachehttp"
+        }
+    ],
+    "settings": {
+        "maven.view": "hierarchical",
+        "java.compile.nullAnalysis.mode": "automatic"
+    }
+}

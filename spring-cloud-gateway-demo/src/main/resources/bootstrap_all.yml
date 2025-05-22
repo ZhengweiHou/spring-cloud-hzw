@@ -1,0 +1,104 @@
+server:
+  http2:
+    enabled: true
+  port: 8099
+
+spring:
+  application:
+    name: hzw-spring-cloud_gateway-demo
+  cloud:
+    loadbalancer:
+      enabled: true
+    nacos:
+        enabled: true
+#        server-addr: ${spring.cloud.nacos.config.server-addr}
+#        namespace: ${spring.cloud.nacos.config.namespace}
+#        username: ${spring.cloud.nacos.config.username}
+#        password: ${spring.cloud.nacos.config.password}
+        serverAddr: 127.0.0.1:8813
+        namespace: nacos-cloud-ns
+        username: nacos
+        # password: "{cipher}bmFjb3M="
+        password: "nacos"
+        watch:
+          enabled: false
+#      config:
+#        enable: true
+#        serverAddr: 127.0.0.1:8813
+#        namespace: nacos-cloud-ns
+#        name: hzwcloudgateway
+#        fileExtension: yaml
+#        username: nacos
+#        password: "{cipher}bmFjb3M="
+    discovery:
+      enabled: true
+      client:
+        simple:
+          instances:
+            xxxhzwservice:
+              - host: 127.0.0.1
+                port: 8001
+              - host: 127.0.0.1
+                port: 8002
+    gateway:
+      filter:
+        remove-hop-by-hop:
+          headers:
+            - connection
+            - keep-alive
+            - transfer-encoding
+            - proxy-authenticate
+            - proxy-authorization
+            - x-application-context
+            - upgrade
+      httpclient:
+        ssl:
+          use-insecure-trust-manager: true
+      enabled: true
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: false
+      routes:
+        - id: hzw_1
+          uri: http://localhost:1001
+          predicates:
+            - Path=/whoami
+            - Weight=hzwgroup1, 90
+        - id: hzw_2
+          uri: http://localhost:1002
+          predicates:
+            - Path=/whoami
+            - Weight=hzwgroup1, 9
+
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: [ '*' ]
+        exclude: [ 'shutdown' ] 
+    jmx:
+      exposure:
+        include: [ 'prometheus' ]
+        exclude: ['shutdown' ]
+  metrics:
+    tags:
+      application: ${spring.application.name}
+    export:
+      prometheus:
+        enabled: true
+        descriptions: true
+
+#h:
+#  z:
+#    w:
+##      pwd: "xxxxx143232"
+#      pwd: "{cipher}aG91encxMTEx"
+#      ccc:
+#        - "{cipher}aG91encxMTExCg=="
+#        - "1234"
+#      ddd:
+#        - a: "{cipher}aG91encxMTExCg=="
+#        - b: "1234"
+#        - c: "{cipher}aG91encxMTExCg=="

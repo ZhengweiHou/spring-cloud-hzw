@@ -6,14 +6,13 @@ spring:
       config:
         enable: true
         #serverAddr: 127.0.0.1:8848
-        # serverAddr: 127.0.0.1:8849
-        serverAddr: 127.0.0.1:8813
+        serverAddr: 127.0.0.1:8849
         namespace: nacos-cloud-ns
         name: hzwcloudgateway
         fileExtension: yaml
         username: nacos
-        password: nacos
+#        password: nacos
 #        password: bmFjb3M=
-        # password: "{cipher}bmFjb3M="
+        password: "{cipher}bmFjb3M="
 
     

@@ -1,13 +1,15 @@
 package com.hzw.learn.springcloudgateway.config;
 
-import com.hzw.learn.springcloudgateway.filter.Hzw2GatewayFilterFactory;
-import com.hzw.learn.springcloudgateway.filter.HzwGatewayFilterFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.client.DefaultServiceInstance;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.loadbalancer.core.ServiceInstanceListSupplier;
 import org.springframework.context.annotation.Bean;
+
+import com.hzw.learn.springcloudgateway.filter.Hzw2GatewayFilterFactory;
+import com.hzw.learn.springcloudgateway.filter.HzwGatewayFilterFactory;
+
 import reactor.core.publisher.Flux;
 
 import java.util.Arrays;

@@ -1,0 +1,112 @@
+server:
+  port: 8099
+  http2:
+    enabled: true
+#   ssl:
+#     enabled: true
+#     key-store: classpath:x509/server.jks
+#     key-store-password: 123456
+#     key-store-type: JKS
+#     key-alias: server
+
+spring:
+  application:
+    name: hzw-spring-cloud_gateway-v3-demo
+  cloud:
+    loadbalancer:
+      enabled: true
+    nacos:
+      discovery:
+        service: "hzw-cloud-gataway-v3"
+        enabled: true
+        serverAddr: 127.0.0.1:8813
+        namespace: nacos-cloud-ns
+        username: nacos
+        password: "nacos"
+        watch:
+          enabled: false
+    discovery:
+      enabled: true
+      client:
+        simple:
+          instances:
+            xxxhzwservice:
+              - host: 127.0.0.1
+                port: 8001
+              - host: 127.0.0.1
+                port: 8002
+            hzwgrpcservice:
+              - host: 127.0.0.1
+                port: 8082
+              - host: 127.0.0.1
+                port: 8888
+    gateway:
+      filter:
+        remove-hop-by-hop:
+          headers:
+            - connection
+            - keep-alive
+            - transfer-encoding
+            - proxy-authenticate
+            - proxy-authorization
+            - x-application-context
+            - upgrade
+      httpclient:
+        ssl:
+          use-insecure-trust-manager: true
+        #   trusted-x509-certificates:    # use-insecure-trust-manager 和 trusted-x509-certificates 不可同时配置
+        #     - classpath:certificate.crt
+      enabled: true
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: false
+      routes:
+        - id: hzw_1
+          uri: http://localhost:1001
+          predicates:
+            - Path=/whoami
+
+        - id: grpc
+          uri: lb://hzwgrpcservice
+        #   uri: http://localhost:8082
+        #   uri: http://localhost:8888
+          predicates:
+            - Path=/helloproto.HelloProtoService/Echo
+          filters:
+            - AddResponseHeader=X-Request-header, header-value
+          metadata:
+            grpc: true
+            protocol: h2
+
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: [ '*' ]
+        exclude: [ 'shutdown' ] 
+    jmx:
+      exposure:
+        include: [ 'prometheus' ]
+        exclude: ['shutdown' ]
+  metrics:
+    tags:
+      application: ${spring.application.name}
+    export:
+      prometheus:
+        enabled: true
+        descriptions: true
+
+#h:
+#  z:
+#    w:
+##      pwd: "xxxxx143232"
+#      pwd: "{cipher}aG91encxMTEx"
+#      ccc:
+#        - "{cipher}aG91encxMTExCg=="
+#        - "1234"
+#      ddd:
+#        - a: "{cipher}aG91encxMTExCg=="
+#        - b: "1234"
+#        - c: "{cipher}aG91encxMTExCg=="

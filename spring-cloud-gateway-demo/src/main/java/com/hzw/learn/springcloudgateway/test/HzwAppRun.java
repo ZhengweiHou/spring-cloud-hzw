@@ -1,12 +1,14 @@
 package com.hzw.learn.springcloudgateway.test;
 
-import com.hzw.learn.springcloudgateway.ext.HzwProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
+
+import com.hzw.learn.springcloudgateway.ext.HzwProperties;
 
 /**
  * @ClassName HzwAppRun
@@ -20,6 +22,9 @@ public class HzwAppRun implements ApplicationRunner {
 
     @Autowired
     HzwProperties hzwProperties;
+
+    @Autowired
+    Environment env;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {

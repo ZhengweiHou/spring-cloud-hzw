@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * @Author houzw
  * @Date 2024/9/24
  **/
-@Component
+//@Component
 public class ApplicationListenerTest implements ApplicationListener<ApplicationEvent> {
     Logger logger = LoggerFactory.getLogger("=event=");
 

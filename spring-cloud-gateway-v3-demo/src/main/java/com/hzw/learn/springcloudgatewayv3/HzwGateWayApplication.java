@@ -1,11 +1,9 @@
-package com.hzw.learn.springcloudgateway;
+package com.hzw.learn.springcloudgatewayv3;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.core.env.Environment;
 
 /**
  * @ClassName HzwGateWayApplication
@@ -16,13 +14,9 @@ import org.springframework.core.env.Environment;
 @SpringBootApplication
 //@EnableAutoConfiguration
 @EnableDiscoveryClient
-@ComponentScan(basePackages = { "com.hzw.learn.springcloudgateway" })
+@ComponentScan(basePackages = { "com.hzw.learn" })
 public class HzwGateWayApplication {
-    @Autowired
-    Environment env;
-
     public static void main(String[] args) {
         SpringApplication.run(HzwGateWayApplication.class, args);
-        
     }
 }
