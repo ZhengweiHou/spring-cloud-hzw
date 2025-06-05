@@ -72,7 +72,8 @@ spring:
         #   uri: http://localhost:8082
         #   uri: http://localhost:8888
           predicates:
-            - Path=/helloproto.HelloProtoService/Echo
+#            - Path=/helloproto.HelloProtoService/Echo
+            - Header=content-type, application/grpc
           filters:
             - AddResponseHeader=X-Request-header, header-value
           metadata:
